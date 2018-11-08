@@ -10,7 +10,6 @@ user_app = Blueprint('user_app', __name__)
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        print('Entrou')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(form.password.data.encode('utf-8'), salt)
         user = User(
@@ -21,7 +20,6 @@ def register():
             last_name=form.last_name.data,
             )
         user.save()
-        print('Salvou no bando de dados')
         return 'Deu certo'
     return render_template('user/register.html', form=form)
 
@@ -29,12 +27,19 @@ def register():
 def login():
     form = LoginForm()
     error = None
+    if request.method == 'GET' and request.args.get('next'):
+        session['next'] = request.args.get('next')
     if form.validate_on_submit():
         user = User.objects.filter(username=form.username.data).first()
         if user:
             if bcrypt.hashpw(form.password.data.encode('utf-8'), user.password.encode('utf-8')) == user.password.encode('utf-8'):
                 session['username'] = form.username.data
-                return 'Usuário logado com sucesso.'
+                if 'next' in session:
+                    next = session.get('next')
+                    session.pop('next')
+                    return redirect(next)
+                else:
+                    return 'Usuário logado com sucesso.'
             else:
                 user = None
         if not user:
