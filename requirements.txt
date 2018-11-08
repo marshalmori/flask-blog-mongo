@@ -4,3 +4,4 @@ pymongo
 mongoengine
 flask-mongoengine
 Flask-WTF
+bcrypt

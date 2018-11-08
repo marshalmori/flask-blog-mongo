@@ -11,5 +11,5 @@ class User(db.Document):
     bio = db.StringField(db_field="b", max_length=50)
 
     meta = {
-        'indexes': ['username', 'email', '-created]']
+        'indexes': ['username', 'email', '-created']
     }
