@@ -28,7 +28,7 @@ class RegisterForm(FlaskForm):
 
     def validate_username(form, field):
         if User.objects.filter(username=field.data).first():
-            raise ValidationError('Username já existe.')
+            raise ValidationError('Nome de usuário já cadastrado.')
 
     def validate_email(form, field):
         if User.objects.filter(email=field.data).first():
