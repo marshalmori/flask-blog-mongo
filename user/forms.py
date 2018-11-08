@@ -33,3 +33,15 @@ class RegisterForm(FlaskForm):
     def validate_email(form, field):
         if User.objects.filter(email=field.data).first():
             raise ValidationError('Email já cadastrado.')
+
+class LoginForm(FlaskForm):
+    username = StringField('Nome de Usuário', [
+            validators.DataRequired(),
+            validators.length(min=4, max=25)
+            ]
+        )
+    password = PasswordField('Senha', [
+            validators.DataRequired(),
+            validators.length(min=4, max=80)
+            ]
+        )
