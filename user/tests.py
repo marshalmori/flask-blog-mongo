@@ -10,8 +10,8 @@ class UserTest(unittest.TestCase):
         return create_app_base(
             MONGODB_SETTINGS={'DB': self.db_name},
             TESTING=True,
-            WTF_CSFR_ENABLED=False
-        )
+            WTF_CSRF_ENABLED=False
+            )
 
     def setUp(self):
         self.app_factory = self.create_app()
@@ -24,11 +24,11 @@ class UserTest(unittest.TestCase):
     def test_register_user(self):
         # basic registration
         rv = self.app.post('/register', data=dict(
-            first_name = 'Marshal',
-            last_name = 'Mori',
-            username = 'marshal',
-            email = 'marshal@marshal.com',
-            password = 'teste1234',
-            confirm = 'teste1234'
-        ), follow_redirects=True)
-        assert User.objects.filter(username='marshal').count() == 1
+            first_name="Jorge",
+            last_name="Escobar",
+            username="jorge",
+            email="jorge@example.com",
+            password="test123",
+            confirm="test123"
+            ), follow_redirects=True)
+        assert User.objects.filter(username='jorge').count() == 1

@@ -15,7 +15,6 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        print('Entrou')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(form.password.data.encode('utf-8'), salt)
         user = User(
