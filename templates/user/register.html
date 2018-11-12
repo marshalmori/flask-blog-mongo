@@ -4,6 +4,8 @@
 
 
 {% block content %}
+
+<header class="masthead">
 <div class="container">
   <div class="row">
     <div class="col-lg-12 ">
@@ -31,7 +33,7 @@
                   {{ render_field(form.password, class='form-control') }}
                   {{ render_field(form.confirm, class='form-control') }}
 
-                  <button type="submit" class="btn btn-primary">Register</button>
+                  <button type="submit" class="btn btn-primary">Cadastrar</button>
 
                 </form>
                 <p></p>
@@ -46,4 +48,6 @@
     </div>
   </div>
 </div>
+</header>
+
 {% endblock %}

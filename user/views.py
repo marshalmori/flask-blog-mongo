@@ -45,3 +45,8 @@ def login():
         if not user:
             error = 'Senha e/ou username incorretos.'
     return render_template('user/login.html', form=form, error=error)
+
+@user_app.route('/logout', methods=('GET', 'POST'))
+def logout():
+    session.pop('username')
+    return redirect(url_for('user_app.login'))
