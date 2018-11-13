@@ -20,7 +20,7 @@ def register():
             last_name=form.last_name.data,
             )
         user.save()
-        return 'Deu certo'
+        return redirect( url_for('user_app.login') )
     return render_template('user/register.html', form=form)
 
 @user_app.route('/login', methods=('GET', 'POST'))
@@ -39,7 +39,7 @@ def login():
                     session.pop('next')
                     return redirect(next)
                 else:
-                    return redirect(url_for('user_app.profile'))
+                    return redirect(url_for('user_app.profile', username=user.username))
             else:
                 user = None
         if not user:
