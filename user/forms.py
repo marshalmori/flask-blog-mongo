@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import validators, StringField, PasswordField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import ValidationError
+import re
 
 from user.models import User
 
@@ -29,6 +30,8 @@ class RegisterForm(FlaskForm):
     def validate_username(form, field):
         if User.objects.filter(username=field.data).first():
             raise ValidationError('Nome de usuário já cadastrado.')
+        if not re.match("^[a-zA-Z0-9_-]{4,25}$", field.data):
+            raise ValidationError('Nome de usuário inválido. Use somente letras, números e underline e traço')
 
     def validate_email(form, field):
         if User.objects.filter(email=field.data).first():
