@@ -1,12 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import validators, StringField, PasswordField
+from wtforms.widgets import TextArea
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import ValidationError
 import re
 
 from user.models import User
 
-class RegisterForm(FlaskForm):
+class BaseUserForm(FlaskForm):
     first_name = StringField('Primeiro Nome', [validators.DataRequired()])
     last_name = StringField('Último Nome', [validators.DataRequired()])
     email = EmailField('Email', [
@@ -19,6 +20,12 @@ class RegisterForm(FlaskForm):
             validators.length(min=4, max=25)
             ]
         )
+    bio = StringField('Biografia',
+            widget = TextArea(),
+            validators=[validators.Length(max=160)]
+        )
+
+class RegisterForm(BaseUserForm):
     password = PasswordField('Senha', [
             validators.DataRequired(),
             validators.EqualTo('confirm', message='As senhas devem ser iguais.'),
@@ -48,3 +55,6 @@ class LoginForm(FlaskForm):
             validators.length(min=4, max=80)
             ]
         )
+
+class EditForm(BaseUserForm):
+    pass
