@@ -39,7 +39,7 @@ def login():
                     session.pop('next')
                     return redirect(next)
                 else:
-                    return 'Usuário logado com sucesso.'
+                    return redirect(url_for('user_app.profile'))
             else:
                 user = None
         if not user:
@@ -50,3 +50,8 @@ def login():
 def logout():
     session.pop('username')
     return redirect(url_for('user_app.login'))
+
+@user_app.route('/<username>', methods=('GET', 'POST'))
+def profile(username):
+    user = User.objects.filter(username=username).first()
+    return render_template('user/profile.html', user=user)

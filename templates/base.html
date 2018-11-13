@@ -38,15 +38,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item mx-0 mx-lg-1">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('user_app.register') }}">Cadastrar</a>
-                </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('user_app.login') }}">Login</a>
-                </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contato</a>
-                </li>
+                {% if session.username %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">
+                        {{ session.username }}
+                        <i class="fa fa-user" style="font-size:20px"></i>
+                      </a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                      <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('user_app.logout') }}">Sair</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                      <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('user_app.login') }}">Login</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                      <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('user_app.register') }}">Registrar</a>
+                    </li>
+                {% endif %}
               </ul>
             </div>
           </div>
