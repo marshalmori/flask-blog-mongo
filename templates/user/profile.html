@@ -58,9 +58,18 @@
         <div id="friends-toolbar" class="row">
 
             <div class="form-group" role="group" aria-label="friends-toolbar-buttons">
-              <button type="button" class="btn btn-primary float-right ">
-                <span class="fa fa-check" aria-hidden="true"></span> Friends
-              </button>
+              {% if edit_profile %}
+                  <a href="{{ url_for('user_app.edit') }}" role='button' class="btn btn-primary float-right">
+                    <span class="fa fa-pencil-alt" aria-hidden="true"></span> Editar
+                  </a>
+              {% else %}
+                  <button type="button" class="btn btn-primary float-right ">
+                    <span class="fa fa-check" aria-hidden="true"></span> Friends
+                  </button>
+              {% endif %}
+
+
+
             </div>
         </div> <!-- friends-toolbar -->
 
