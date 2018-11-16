@@ -38,11 +38,11 @@ class RegisterForm(BaseUserForm):
         if User.objects.filter(username=field.data).first():
             raise ValidationError('Nome de usuário já cadastrado.')
         if not re.match("^[a-zA-Z0-9_-]{4,25}$", field.data):
-            raise ValidationError('Nome de usuário inválido. Use somente letras, números e underline e traço')
+            raise ValidationError('Nome de usuário inválido.')
 
     def validate_email(form, field):
         if User.objects.filter(email=field.data).first():
-            raise ValidationError('Email já cadastrado.')
+            raise ValidationError('Email cadastrado.')
 
 class LoginForm(FlaskForm):
     username = StringField('Nome de Usuário', [
